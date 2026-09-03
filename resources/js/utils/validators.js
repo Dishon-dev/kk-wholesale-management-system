@@ -27,11 +27,6 @@ export function isNonNegativeNumber(value) {
     return Number(value) >= 0 ? null : 'Cannot be negative.';
 }
 
-/**
- * Runs a list of [value, ...rules] pairs and returns a { field: message }
- * map for whichever ones failed. Used by useForm's optional client-side
- * pre-check before a submission hits the network.
- */
 export function validate(fields) {
     const errors = {};
     for (const [field, value, ...rules] of fields) {
