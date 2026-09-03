@@ -108,12 +108,9 @@ class ProductVariantService
             $variant,
             $data
         ) {
-            if (
-                ($data['is_default'] ?? false)
-                === true
-            ) {
+            if (($data['is_default'] ?? false) === true) {
                 $product->variants()
-                    ->whereKey('!=', $variant->id)
+                    ->where('id', '!=', $variant->id)
                     ->update([
                         'is_default' => false,
                     ]);
