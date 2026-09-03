@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
     /** Authentication Endpoints */
-    Route::prefix('auth')->middleware(['web', 'throttle:api'])->group(function () {
+    Route::prefix('auth')->middleware('throttle:api')->group(function () {
         Route::post('login', [AuthController::class, 'login']);
         Route::post('forgot-password', [AuthController::class, 'forgotPassword']);
         Route::post('reset-password', [AuthController::class, 'resetPassword']);
