@@ -26,13 +26,7 @@ export const useUiStore = defineStore('ui', {
         toggleSidebar() {
             this.sidebarCollapsed = !this.sidebarCollapsed;
         },
-
-        /**
-         * Opens the shared confirmation modal and resolves to `true`/`false`
-         * depending on which button the person clicks. Anywhere in the app
-         * that needs a "are you sure?" step awaits this instead of shipping
-         * its own modal.
-         */
+        
         confirm({ title, message, confirmLabel = 'Confirm', tone = 'danger' }) {
             return new Promise((resolve) => {
                 this.confirmDialog = { title, message, confirmLabel, tone, resolve };

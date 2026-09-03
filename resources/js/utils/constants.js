@@ -145,4 +145,8 @@ export const PERMISSIONS = {
     RETURNS_VIEW: 'returns.view',
     RETURNS_CREATE: 'returns.create',
     RETURNS_CANCEL: 'returns.cancel',
+
+    ALERTS_VIEW: 'alerts.view',
+
+    ACTIVITY_VIEW: 'activity.view',
 };
