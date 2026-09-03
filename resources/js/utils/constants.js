@@ -1,9 +1,3 @@
-/**
- * Stock movement types, mirrored from the `stock_movements.movement_type`
- * enum on the backend. `sign` is used purely for client-side display (e.g.
- * colouring a +/- prefix) — the authoritative balance math happens server
- * side inside the transaction that writes the row.
- */
 export const MOVEMENT_TYPES = {
     INITIAL_STOCK: { label: 'Initial stock', tone: 'neutral', sign: '+' },
     SALE: { label: 'Sale', tone: 'negative', sign: '-' },
@@ -50,13 +44,6 @@ export const ALERT_TYPES = {
     LOW_STOCK: { label: 'Low stock', tone: 'warning' },
     OUT_OF_STOCK: { label: 'Out of stock', tone: 'negative' },
 };
-
-/**
- * Permission keys the UI checks against. These are suggestions for the
- * backend seeder (see docs/API-CONTRACT.md) — the frontend never hardcodes
- * role names, it only ever checks permission strings returned at login, so
- * new roles/permissions created later work without a frontend change.
- */
 
 export const PERMISSIONS = {
     DASHBOARD_VIEW: 'reports.view',
