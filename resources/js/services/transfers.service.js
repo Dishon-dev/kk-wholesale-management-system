@@ -21,13 +21,11 @@ export async function approve(id) {
 }
 
 export async function send(id, payload) {
-    // payload: { items: [{ product_variant_id, quantity_sent }] }
     const { data } = await http.post(`/stock-transfers/${id}/send`, payload);
     return data;
 }
 
 export async function receive(id, payload) {
-    // payload: { items: [{ product_variant_id, quantity_received }] }
     const { data } = await http.post(`/stock-transfers/${id}/receive`, payload);
     return data;
 }

@@ -16,8 +16,7 @@ export async function remove(id) {
 }
 
 export async function search(params) {
-    // Used by the POS and transfer screens to look up a variant by SKU,
-    // barcode, or product name while typing.
+    // look up a variant by SKU,barcode, or product name
     const { data } = await http.get('/variants/search', { params });
     return data;
 }

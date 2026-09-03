@@ -27,9 +27,7 @@ const { items, loading, params, meta, load, reload, goToPage, setFilter } = useP
 onMounted(async () => {
     const { data } = await storesService.list({ per_page: 100, status: 1 });
     stores.value = data;
-
-    // Store Managers only ever see their own store; default everyone else
-    // to the first store in whatever scoped list the API returned.
+    
     activeStoreId.value = auth.user?.store_id ?? data[0]?.id ?? '';
     if (activeStoreId.value) load();
 });

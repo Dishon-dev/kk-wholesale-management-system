@@ -16,7 +16,7 @@ const stores = ref([]);
 const storeId = ref('');
 const cart = ref([]);
 const discount = ref(0);
-const taxRate = ref(0); // percentage, e.g. 16 for 16% VAT
+const taxRate = ref(0);
 const processing = ref(false);
 
 onMounted(async () => {

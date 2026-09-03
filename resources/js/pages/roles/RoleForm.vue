@@ -32,8 +32,6 @@ async function loadPermissions() {
 
 onMounted(loadPermissions);
 
-// Group "products.manage" / "products.view" under a "products" heading so
-// the checklist reads like a module map rather than a flat alphabet soup.
 const groupedPermissions = computed(() => {
     const groups = {};
     for (const permission of allPermissions.value) {
