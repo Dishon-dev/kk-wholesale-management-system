@@ -1,9 +1,117 @@
-@import 'tailwindcss';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@700&family=JetBrains+Mono:wght@400;500&display=swap');
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
+@import "tailwindcss";
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+@config "../../tailwind.config.js";
+
+@layer base {
+    html {
+        -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+        @apply bg-canvas text-ink font-sans text-sm;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        @apply font-display text-ink;
+    }
+
+    .figures {
+        font-variant-numeric: tabular-nums;
+        @apply font-mono;
+    }
+
+    :focus-visible {
+        @apply outline-2 outline-offset-2 outline-brand-500;
+    }
+}
+
+@layer components {
+    .panel {
+        @apply rounded border border-border bg-surface shadow-panel;
+    }
+
+    .panel-header {
+        @apply flex items-center justify-between border-b border-border px-5 py-4;
+    }
+
+    .field-label {
+        @apply mb-1 block text-xs font-medium text-ink-soft;
+    }
+
+    .field-input {
+        @apply w-full rounded border border-border bg-surface px-3 py-2 text-sm text-ink placeholder:text-ink-faint focus:border-brand-500 focus:ring-1 focus:ring-brand-500 disabled:bg-canvas disabled:text-ink-faint;
+    }
+
+    .field-error {
+        @apply mt-1 text-xs text-brick-500;
+    }
+
+    .btn-primary {
+        @apply inline-flex items-center justify-center gap-2 rounded px-3.5 py-2 text-sm font-medium text-white
+               transition-colors bg-brand-600 hover:bg-brand-700
+               disabled:cursor-not-allowed disabled:opacity-70;
+    }
+
+    .btn-secondary {
+        @apply inline-flex items-center justify-center gap-2 rounded border border-border bg-surface px-3.5 py-2
+               text-sm font-medium text-ink transition-colors hover:border-border-strong hover:bg-canvas
+               disabled:cursor-not-allowed disabled:opacity-50;
+    }
+
+    .btn-danger {
+        @apply inline-flex items-center justify-center gap-2 rounded px-3.5 py-2 text-sm font-medium text-white
+               transition-colors bg-brick-500 hover:bg-brick-700
+               disabled:cursor-not-allowed disabled:opacity-50;
+    }
+
+    .btn-ghost {
+        @apply inline-flex items-center justify-center gap-2 rounded px-3.5 py-2 text-sm font-medium text-ink-soft
+               transition-colors hover:bg-canvas hover:text-ink
+               disabled:cursor-not-allowed disabled:opacity-50;
+    }
+
+    .tag {
+        @apply inline-flex items-center gap-1.5 rounded-sm border-l-2 bg-canvas px-2 py-0.5 text-xs font-medium;
+    }
+
+    .tag-neutral {
+        @apply border-l-ink-faint text-ink-soft;
+    }
+
+    .tag-positive {
+        @apply border-l-moss-500 bg-moss-50 text-moss-700;
+    }
+
+    .tag-warning {
+        @apply border-l-amber-500 bg-amber-50 text-amber-700;
+    }
+
+    .tag-negative {
+        @apply border-l-brick-500 bg-brick-50 text-brick-700;
+    }
+
+    .tag-info {
+        @apply border-l-violet-500 text-violet-700;
+    }
+
+    table.data-table {
+        @apply w-full border-collapse text-sm;
+    }
+
+    table.data-table thead th {
+        @apply sticky top-0 z-10 border-b border-border bg-canvas px-4 py-2.5 text-left text-xs font-medium text-ink-soft;
+    }
+
+    table.data-table tbody td {
+        @apply border-b border-border px-4 py-2.5 text-ink;
+    }
+
+    table.data-table tbody tr:hover {
+        @apply bg-canvas/70;
+    }
 }
