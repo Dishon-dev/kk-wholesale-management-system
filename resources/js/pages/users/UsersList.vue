@@ -117,7 +117,8 @@ async function handleDelete(user) {
                     <tr v-for="user in items" :key="user.id">
                         <td>
                             <div class="flex items-center gap-2.5">
-                                <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-semibold text-brand-700">
+                                <span
+                                    class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-semibold text-brand-700">
                                     {{ initials(user.name) }}
                                 </span>
                                 <div>
@@ -126,24 +127,24 @@ async function handleDelete(user) {
                                 </div>
                             </div>
                         </td>
-                        <td class="text-ink-soft">{{ user.roles?.[0].name || '—' }}</td>
+                        <td class="text-ink-soft">{{ user.roles?.[0].name || '' }}</td>
                         <td class="text-ink-soft">{{ user.store?.name ?? user.branch?.name ?? 'All branches' }}</td>
-                        <td class="text-ink-soft">{{ user.last_login_at ? formatDateTime(user.last_login_at) : 'Never' }}</td>
+                        <td class="text-ink-soft">{{ user.last_login_at ? formatDateTime(user.last_login_at) : 'Never'
+                            }}</td>
                         <td>
-                            <StatusTag :label="user.is_active ? 'Active' : 'Inactive'" :tone="user.is_active ? 'positive' : 'neutral'" />
+                            <StatusTag :label="user.is_active ? 'Active' : 'Inactive'"
+                                :tone="user.is_active ? 'positive' : 'neutral'" />
                         </td>
                         <td>
-                            <button type="button" class="btn-ghost px-2 py-1 text-xs" @click="openEdit(user)">Edit</button>
-                            <button type="button" class="btn-ghost px-2 py-1 text-xs" @click="handleResetPassword(user)">Reset password</button>
+                            <button type="button" class="btn-ghost px-2 py-1 text-xs"
+                                @click="openEdit(user)">Edit</button>
+                            <button type="button" class="btn-ghost px-2 py-1 text-xs"
+                                @click="handleResetPassword(user)">Reset password</button>
                             <button type="button" class="btn-ghost px-2 py-1 text-xs" @click="toggleActive(user)">
                                 {{ user.is_active ? 'Deactivate' : 'Activate' }}
                             </button>
-                            <button
-                                v-if="user.id !== auth.user?.id"
-                                type="button"
-                                class="btn-ghost px-2 py-1 text-xs text-brick-500"
-                                @click="handleDelete(user)"
-                            >
+                            <button v-if="user.id !== auth.user?.id" type="button"
+                                class="btn-ghost px-2 py-1 text-xs text-brick-500" @click="handleDelete(user)">
                                 Delete
                             </button>
                         </td>
@@ -151,7 +152,8 @@ async function handleDelete(user) {
                 </tbody>
             </table>
 
-            <BasePagination v-if="items.length" :current-page="meta.currentPage" :last-page="meta.lastPage" :total="meta.total" @change="goToPage" />
+            <BasePagination v-if="items.length" :current-page="meta.currentPage" :last-page="meta.lastPage"
+                :total="meta.total" @change="goToPage" />
         </div>
 
         <UserForm v-if="formOpen" :user="editingUser" @close="formOpen = false" @saved="handleSaved" />

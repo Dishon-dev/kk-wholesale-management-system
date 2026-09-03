@@ -29,7 +29,7 @@ function movementMeta(type) {
 }
 
 function referenceLabel(entry) {
-    if (!entry.reference_type) return '—';
+    if (!entry.reference_type) return '';
     const type = entry.reference_type.split('\\').pop();
     return `${type} #${entry.reference_id}`;
 }
@@ -39,7 +39,8 @@ function referenceLabel(entry) {
     <div>
         <div class="mb-5">
             <h1 class="text-xl font-semibold">Stock movements</h1>
-            <p class="text-sm text-ink-soft">A complete, immutable history of every change to stock — the source of truth for "what happened".</p>
+            <p class="text-sm text-ink-soft">A complete, immutable history of every change to stock — the source of
+                truth for "what happened".</p>
         </div>
 
         <div class="panel">
@@ -55,7 +56,8 @@ function referenceLabel(entry) {
                         <option v-for="(meta, key) in MOVEMENT_TYPES" :key="key" :value="key">{{ meta.label }}</option>
                     </select>
 
-                    <input type="date" class="field-input w-auto" @change="setFilter('date_from', $event.target.value)" />
+                    <input type="date" class="field-input w-auto"
+                        @change="setFilter('date_from', $event.target.value)" />
                     <input type="date" class="field-input w-auto" @change="setFilter('date_to', $event.target.value)" />
                 </template>
             </TableToolbar>
@@ -86,19 +88,21 @@ function referenceLabel(entry) {
                             <p class="text-xs text-ink-faint">{{ entry.stock?.product_variant?.name }}</p>
                         </td>
                         <td>
-                            <StatusTag :label="movementMeta(entry.movement_type).label" :tone="movementMeta(entry.movement_type).tone" />
+                            <StatusTag :label="movementMeta(entry.movement_type).label"
+                                :tone="movementMeta(entry.movement_type).tone" />
                         </td>
                         <td class="figures" :class="entry.change < 0 ? 'text-brick-500' : 'text-moss-700'">
                             {{ entry.change > 0 ? '+' : '' }}{{ formatNumber(entry.change) }}
                         </td>
                         <td class="figures font-medium">{{ formatNumber(entry.balance_after) }}</td>
                         <td class="text-ink-faint">{{ referenceLabel(entry) }}</td>
-                        <td class="text-ink-soft">{{ entry.performed_by_user?.name ?? '—' }}</td>
+                        <td class="text-ink-soft">{{ entry.performed_by_user?.name ?? '' }}</td>
                     </tr>
                 </tbody>
             </table>
 
-            <BasePagination v-if="items.length" :current-page="meta.currentPage" :last-page="meta.lastPage" :total="meta.total" @change="goToPage" />
+            <BasePagination v-if="items.length" :current-page="meta.currentPage" :last-page="meta.lastPage"
+                :total="meta.total" @change="goToPage" />
         </div>
     </div>
 </template>

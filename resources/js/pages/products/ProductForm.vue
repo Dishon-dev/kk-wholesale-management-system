@@ -39,7 +39,7 @@ const form = useForm(
 
 function flattenCategories(nodes, depth = 0, out = []) {
     for (const node of nodes) {
-        out.push({ id: node.id, label: `${'—'.repeat(depth)} ${node.name}`.trim() });
+        out.push({ id: node.id, label: `${''.repeat(depth)} ${node.name}`.trim() });
         if (node.children?.length) flattenCategories(node.children, depth + 1, out);
     }
     return out;
@@ -109,7 +109,8 @@ async function handleSubmit() {
     <div class="mx-auto max-w-3xl">
         <div class="mb-5">
             <h1 class="text-xl font-semibold">{{ isEditing ? 'Edit product' : 'Add product' }}</h1>
-            <p class="text-sm text-ink-soft">Every product needs at least one variant - simple products get a "Default Variant".</p>
+            <p class="text-sm text-ink-soft">Every product needs at least one variant - simple products get a "Default
+                Variant".</p>
         </div>
 
         <LoadingSpinner v-if="loading" label="Loading product" />
@@ -124,7 +125,8 @@ async function handleSubmit() {
                     </div>
                     <div>
                         <label class="field-label" for="p-sku-prefix">SKU prefix</label>
-                        <input id="p-sku-prefix" v-model="form.data.sku_prefix" class="field-input" placeholder="e.g. RC-SUGAR" />
+                        <input id="p-sku-prefix" v-model="form.data.sku_prefix" class="field-input"
+                            placeholder="e.g. RC-SUGAR" />
                         <p v-if="form.errors.sku_prefix" class="field-error">{{ form.errors.sku_prefix }}</p>
                     </div>
                 </div>
@@ -138,19 +140,22 @@ async function handleSubmit() {
                         <label class="field-label" for="p-category">Category</label>
                         <select id="p-category" v-model="form.data.category_id" class="field-input">
                             <option value="">No category</option>
-                            <option v-for="option in categoryOptions" :key="option.id" :value="option.id">{{ option.label }}</option>
+                            <option v-for="option in categoryOptions" :key="option.id" :value="option.id">{{
+                                option.label }}</option>
                         </select>
                     </div>
                 </div>
 
                 <div>
                     <label class="field-label" for="p-description">Description</label>
-                    <textarea id="p-description" v-model="form.data.description" rows="3" class="field-input"></textarea>
+                    <textarea id="p-description" v-model="form.data.description" rows="3"
+                        class="field-input"></textarea>
                 </div>
 
                 <div class="flex items-center gap-6">
                     <label class="flex items-center gap-2 text-sm text-ink-soft">
-                        <input v-model="form.data.has_variants" type="checkbox" class="rounded border-border" @change="onHasVariantsToggle" />
+                        <input v-model="form.data.has_variants" type="checkbox" class="rounded border-border"
+                            @change="onHasVariantsToggle" />
                         This product has multiple variants (size, colour, pack, etc.)
                     </label>
                     <label class="flex items-center gap-2 text-sm text-ink-soft">
@@ -162,18 +167,17 @@ async function handleSubmit() {
 
             <div class="panel p-5">
                 <div class="mb-3 flex items-center justify-between">
-                    <h2 class="text-sm font-semibold text-ink">{{ form.data.has_variants ? 'Variants' : 'Pricing' }}</h2>
-                    <button v-if="form.data.has_variants" type="button" class="btn-secondary text-xs" @click="addVariant">
+                    <h2 class="text-sm font-semibold text-ink">{{ form.data.has_variants ? 'Variants' : 'Pricing' }}
+                    </h2>
+                    <button v-if="form.data.has_variants" type="button" class="btn-secondary text-xs"
+                        @click="addVariant">
                         Add variant
                     </button>
                 </div>
 
                 <div class="space-y-3">
-                    <div
-                        v-for="(variant, index) in form.data.variants"
-                        :key="index"
-                        class="grid grid-cols-12 items-start gap-3 rounded border border-border p-3"
-                    >
+                    <div v-for="(variant, index) in form.data.variants" :key="index"
+                        class="grid grid-cols-12 items-start gap-3 rounded border border-border p-3">
                         <div class="col-span-3">
                             <label class="field-label">Variant name</label>
                             <input v-model="variant.name" class="field-input" :disabled="!form.data.has_variants" />
@@ -195,12 +199,8 @@ async function handleSubmit() {
                             <input v-model="variant.cost" type="number" min="0" step="0.01" class="field-input" />
                         </div>
                         <div class="col-span-1 flex h-full items-end justify-end pb-2">
-                            <button
-                                v-if="form.data.has_variants && form.data.variants.length > 1"
-                                type="button"
-                                class="text-xs text-brick-500"
-                                @click="removeVariant(index)"
-                            >
+                            <button v-if="form.data.has_variants && form.data.variants.length > 1" type="button"
+                                class="text-xs text-brick-500" @click="removeVariant(index)">
                                 Remove
                             </button>
                         </div>
@@ -209,7 +209,8 @@ async function handleSubmit() {
             </div>
 
             <div class="flex justify-end gap-2">
-                <button type="button" class="btn-secondary" @click="router.push({ name: 'products.index' })">Cancel</button>
+                <button type="button" class="btn-secondary"
+                    @click="router.push({ name: 'products.index' })">Cancel</button>
                 <button type="submit" class="btn-primary" :disabled="form.processing">
                     {{ form.processing ? 'Saving…' : 'Save product' }}
                 </button>

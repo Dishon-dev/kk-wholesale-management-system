@@ -110,21 +110,22 @@ async function confirmReceive() {
                 <h1 class="font-mono text-xl font-semibold">{{ transfer.reference_no }}</h1>
                 <p class="text-sm text-ink-soft">{{ transfer.from_store?.name }} → {{ transfer.to_store?.name }}</p>
             </div>
-            <StatusTag :label="TRANSFER_STATUSES[transfer.status]?.label ?? transfer.status" :tone="TRANSFER_STATUSES[transfer.status]?.tone" />
+            <StatusTag :label="TRANSFER_STATUSES[transfer.status]?.label ?? transfer.status"
+                :tone="TRANSFER_STATUSES[transfer.status]?.tone" />
         </div>
 
         <div class="panel mb-4 grid grid-cols-3 gap-4 p-5 text-sm">
             <div>
                 <p class="text-xs text-ink-faint">Requested by</p>
-                <p class="text-ink">{{ transfer.requested_by_user?.name ?? '—' }}</p>
+                <p class="text-ink">{{ transfer.requested_by_user?.name ?? '' }}</p>
             </div>
             <div>
                 <p class="text-xs text-ink-faint">Approved by</p>
-                <p class="text-ink">{{ transfer.approved_by_user?.name ?? '—' }}</p>
+                <p class="text-ink">{{ transfer.approved_by_user?.name ?? '' }}</p>
             </div>
             <div>
                 <p class="text-xs text-ink-faint">Received by</p>
-                <p class="text-ink">{{ transfer.received_by_user?.name ?? '—' }}</p>
+                <p class="text-ink">{{ transfer.received_by_user?.name ?? '' }}</p>
             </div>
         </div>
 
@@ -138,27 +139,31 @@ async function confirmReceive() {
                         <th>Product</th>
                         <th>Requested</th>
                         <th v-if="mode !== 'view' || transfer.status !== 'PENDING'">Sent</th>
-                        <th v-if="mode === 'receiving' || ['RECEIVED', 'PARTIALLY_RECEIVED'].includes(transfer.status)">Received</th>
+                        <th v-if="mode === 'receiving' || ['RECEIVED', 'PARTIALLY_RECEIVED'].includes(transfer.status)">
+                            Received</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="(item, index) in transfer.items" :key="item.id">
                         <td>
                             <p class="font-medium text-ink">{{ item.product_variant?.product?.name }}</p>
-                            <p class="text-xs text-ink-faint">{{ item.product_variant?.name }} · {{ item.product_variant?.sku }}</p>
+                            <p class="text-xs text-ink-faint">{{ item.product_variant?.name }} · {{
+                                item.product_variant?.sku }}</p>
                         </td>
                         <td class="figures">{{ formatNumber(item.quantity_requested) }}</td>
                         <td v-if="mode === 'sending'">
-                            <input v-model="workingItems[index].quantity_sent" type="number" min="0" class="field-input w-24" />
+                            <input v-model="workingItems[index].quantity_sent" type="number" min="0"
+                                class="field-input w-24" />
                         </td>
                         <td v-else-if="mode !== 'view' || transfer.status !== 'PENDING'" class="figures">
-                            {{ item.quantity_sent != null ? formatNumber(item.quantity_sent) : '—' }}
+                            {{ item.quantity_sent != null ? formatNumber(item.quantity_sent) : '' }}
                         </td>
                         <td v-if="mode === 'receiving'">
-                            <input v-model="workingItems[index].quantity_received" type="number" min="0" class="field-input w-24" />
+                            <input v-model="workingItems[index].quantity_received" type="number" min="0"
+                                class="field-input w-24" />
                         </td>
                         <td v-else-if="['RECEIVED', 'PARTIALLY_RECEIVED'].includes(transfer.status)" class="figures">
-                            {{ item.quantity_received != null ? formatNumber(item.quantity_received) : '—' }}
+                            {{ item.quantity_received != null ? formatNumber(item.quantity_received) : '' }}
                         </td>
                     </tr>
                 </tbody>
@@ -167,15 +172,19 @@ async function confirmReceive() {
 
         <div class="mt-5 flex justify-end gap-2">
             <template v-if="mode === 'view'">
-                <button v-if="canCancel" type="button" class="btn-secondary text-brick-500" @click="handleCancel">Cancel transfer</button>
+                <button v-if="canCancel" type="button" class="btn-secondary text-brick-500" @click="handleCancel">Cancel
+                    transfer</button>
                 <button v-if="canApprove" type="button" class="btn-primary" @click="handleApprove">Approve</button>
                 <button v-if="canSend" type="button" class="btn-primary" @click="startSending">Record dispatch</button>
-                <button v-if="canReceive" type="button" class="btn-primary" @click="startReceiving">Record receipt</button>
+                <button v-if="canReceive" type="button" class="btn-primary" @click="startReceiving">Record
+                    receipt</button>
             </template>
             <template v-else>
                 <button type="button" class="btn-secondary" @click="mode = 'view'">Cancel</button>
-                <button v-if="mode === 'sending'" type="button" class="btn-primary" @click="confirmSend">Confirm dispatch</button>
-                <button v-if="mode === 'receiving'" type="button" class="btn-primary" @click="confirmReceive">Confirm receipt</button>
+                <button v-if="mode === 'sending'" type="button" class="btn-primary" @click="confirmSend">Confirm
+                    dispatch</button>
+                <button v-if="mode === 'receiving'" type="button" class="btn-primary" @click="confirmReceive">Confirm
+                    receipt</button>
             </template>
         </div>
     </div>

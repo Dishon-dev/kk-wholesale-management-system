@@ -96,40 +96,21 @@ async function handleDelete(branch) {
                 </p>
             </div>
 
-            <button
-                v-if="can(PERMISSIONS.BRANCHES_CREATE)"
-                type="button"
-                class="btn-primary"
-                @click="openCreate"
-            >
+            <button v-if="can(PERMISSIONS.BRANCHES_CREATE)" type="button" class="btn-primary" @click="openCreate">
                 Add branch
             </button>
         </div>
 
         <!-- Table -->
         <div class="panel">
-            <TableToolbar
-                v-model="params.search"
-                placeholder="Search branches…"
-                @update:modelValue="reload"
-            />
+            <TableToolbar v-model="params.search" placeholder="Search branches…" @update:modelValue="reload" />
 
-            <LoadingSpinner
-                v-if="loading"
-                class="px-5 py-8"
-                label="Loading branches"
-            />
+            <LoadingSpinner v-if="loading" class="px-5 py-8" label="Loading branches" />
 
-            <EmptyState
-                v-else-if="!items.length"
-                title="No branches yet"
-                message="Add your first branch to start setting up stores under it."
-            />
+            <EmptyState v-else-if="!items.length" title="No branches yet"
+                message="Add your first branch to start setting up stores under it." />
 
-            <table
-                v-else
-                class="data-table"
-            >
+            <table v-else class="data-table">
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -143,10 +124,7 @@ async function handleDelete(branch) {
                 </thead>
 
                 <tbody>
-                    <tr
-                        v-for="branch in items"
-                        :key="branch.id"
-                    >
+                    <tr v-for="branch in items" :key="branch.id">
                         <td class="font-medium">
                             {{ branch.name }}
                         </td>
@@ -156,11 +134,11 @@ async function handleDelete(branch) {
                         </td>
 
                         <td class="text-ink-soft">
-                            {{ branch.email || '—' }}
+                            {{ branch.email || '' }}
                         </td>
 
                         <td class="text-ink-soft">
-                            {{ branch.phone || '—' }}
+                            {{ branch.phone || '' }}
                         </td>
 
                         <td class="text-ink-soft">
@@ -168,28 +146,18 @@ async function handleDelete(branch) {
                         </td>
 
                         <td>
-                            <StatusTag
-                                :label="branch.is_active ? 'Active' : 'Inactive'"
-                                :tone="branch.is_active ? 'positive' : 'neutral'"
-                            />
+                            <StatusTag :label="branch.is_active ? 'Active' : 'Inactive'"
+                                :tone="branch.is_active ? 'positive' : 'neutral'" />
                         </td>
 
                         <td>
-                            <button
-                                v-if="can(PERMISSIONS.BRANCHES_UPDATE)"
-                                type="button"
-                                class="btn-ghost px-2 py-1 text-xs"
-                                @click="openEdit(branch)"
-                            >
+                            <button v-if="can(PERMISSIONS.BRANCHES_UPDATE)" type="button"
+                                class="btn-ghost px-2 py-1 text-xs" @click="openEdit(branch)">
                                 Edit
                             </button>
 
-                            <button
-                                v-if="can(PERMISSIONS.BRANCHES_DELETE)"
-                                type="button"
-                                class="btn-ghost px-2 py-1 text-xs text-brick-500"
-                                @click="handleDelete(branch)"
-                            >
+                            <button v-if="can(PERMISSIONS.BRANCHES_DELETE)" type="button"
+                                class="btn-ghost px-2 py-1 text-xs text-brick-500" @click="handleDelete(branch)">
                                 Delete
                             </button>
                         </td>
@@ -197,20 +165,10 @@ async function handleDelete(branch) {
                 </tbody>
             </table>
 
-            <BasePagination
-                v-if="items.length"
-                :current-page="meta.currentPage"
-                :last-page="meta.lastPage"
-                :total="meta.total"
-                @change="goToPage"
-            />
+            <BasePagination v-if="items.length" :current-page="meta.currentPage" :last-page="meta.lastPage"
+                :total="meta.total" @change="goToPage" />
         </div>
 
-        <BranchForm
-            v-if="formOpen"
-            :branch="editingBranch"
-            @close="formOpen = false"
-            @saved="handleSaved"
-        />
+        <BranchForm v-if="formOpen" :branch="editingBranch" @close="formOpen = false" @saved="handleSaved" />
     </div>
 </template>

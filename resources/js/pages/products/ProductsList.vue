@@ -43,7 +43,7 @@ function priceRange(product) {
         .filter(Number.isFinite);
 
     if (!prices.length) {
-        return '—';
+        return '';
     }
 
     const min = Math.min(...prices);
@@ -68,11 +68,13 @@ function priceRange(product) {
         </div>
 
         <div class="panel">
-            <TableToolbar v-model="params.search" placeholder="Search by name, SKU or brand…" @update:modelValue="reload" />
+            <TableToolbar v-model="params.search" placeholder="Search by name, SKU or brand…"
+                @update:modelValue="reload" />
 
             <LoadingSpinner v-if="loading" class="px-5 py-8" label="Loading products" />
 
-            <EmptyState v-else-if="!items.length" title="No products yet" message="Add your first product to start recording stock and sales." />
+            <EmptyState v-else-if="!items.length" title="No products yet"
+                message="Add your first product to start recording stock and sales." />
 
             <table v-else class="data-table">
                 <thead>
@@ -88,22 +90,27 @@ function priceRange(product) {
                 <tbody>
                     <tr v-for="product in items" :key="product.id">
                         <td>
-                            <RouterLink :to="{ name: 'products.show', params: { id: product.id } }" class="font-medium text-ink hover:text-brand-500">
+                            <RouterLink :to="{ name: 'products.show', params: { id: product.id } }"
+                                class="font-medium text-ink hover:text-brand-500">
                                 {{ product.name }}
                             </RouterLink>
                             <p class="text-xs text-ink-faint">{{ product.sku_prefix }}</p>
                         </td>
-                        <td class="text-ink-soft">{{ product.brand?.name || '—' }}</td>
+                        <td class="text-ink-soft">{{ product.brand?.name || '' }}</td>
                         <td class="text-ink-soft">{{ product.variants?.length ?? 0 }}</td>
                         <td class="figures text-ink-soft">{{ priceRange(product) }}</td>
                         <td>
-                            <StatusTag :label="product.is_active ? 'Active' : 'Inactive'" :tone="product.status ? 'positive' : 'neutral'" />
+                            <StatusTag :label="product.is_active ? 'Active' : 'Inactive'"
+                                :tone="product.status ? 'positive' : 'neutral'" />
                         </td>
                         <td class="text-right">
-                            <RouterLink v-if="can('products.update')" :to="{ name: 'products.edit', params: { id: product.id } }" class="btn-ghost inline-flex px-2 py-1 text-xs">
+                            <RouterLink v-if="can('products.update')"
+                                :to="{ name: 'products.edit', params: { id: product.id } }"
+                                class="btn-ghost inline-flex px-2 py-1 text-xs">
                                 Edit
                             </RouterLink>
-                            <button v-if="can('products.delete')" type="button" class="btn-ghost px-2 py-1 text-xs text-brick-500" @click="handleDelete(product)">
+                            <button v-if="can('products.delete')" type="button"
+                                class="btn-ghost px-2 py-1 text-xs text-brick-500" @click="handleDelete(product)">
                                 Delete
                             </button>
                         </td>
@@ -111,7 +118,8 @@ function priceRange(product) {
                 </tbody>
             </table>
 
-            <BasePagination v-if="items.length" :current-page="meta.currentPage" :last-page="meta.lastPage" :total="meta.total" @change="goToPage" />
+            <BasePagination v-if="items.length" :current-page="meta.currentPage" :last-page="meta.lastPage"
+                :total="meta.total" @change="goToPage" />
         </div>
     </div>
 </template>
