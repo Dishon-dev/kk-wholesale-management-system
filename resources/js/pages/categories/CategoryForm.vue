@@ -15,6 +15,7 @@ const emit = defineEmits(['close', 'saved']);
 const form = useForm(
     {
         name: props.category?.name ?? '',
+        // description: props.category?.description ?? '',
         parent_id: props.category?.parent_id ?? props.parent?.id ?? null,
     },
     { rules: { name: [required] } }
@@ -44,6 +45,12 @@ async function handleSubmit() {
                 <input id="category-name" v-model="form.data.name" class="field-input" />
                 <p v-if="form.errors.name" class="field-error">{{ form.errors.name }}</p>
             </div>
+
+            <!-- <div>
+                <label class="field-label" for="category-description">Category Description</label>
+                <input id="category-description" v-model="form.data.description" class="field-input" />
+                <p v-if="form.errors.description" class="field-error">{{ form.errors.description }}</p>
+            </div> -->
         </form>
 
         <template #footer>

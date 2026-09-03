@@ -33,10 +33,10 @@ const expanded = ref(true);
                 <span class="text-xs text-ink-faint">{{ category.products_count ?? 0 }} products</span>
             </div>
 
-            <div v-if="can('categories.manage')" class="hidden items-center gap-1 group-hover:flex">
-                <button type="button" class="btn-ghost px-2 py-1 text-xs" @click="emit('add-child', category)">Add sub-category</button>
-                <button type="button" class="btn-ghost px-2 py-1 text-xs" @click="emit('edit', category)">Edit</button>
-                <button type="button" class="btn-ghost px-2 py-1 text-xs text-brick-500" @click="emit('delete', category)">Delete</button>
+            <div class="hidden items-center gap-1 group-hover:flex">
+                <button v-if="can('categories.create')" type="button" class="btn-ghost px-2 py-1 text-xs" @click="emit('add-child', category)">Add sub-category</button>
+                <button v-if="can('categories.update')" type="button" class="btn-ghost px-2 py-1 text-xs" @click="emit('edit', category)">Edit</button>
+                <button v-if="can('categories.delete')" type="button" class="btn-ghost px-2 py-1 text-xs text-brick-500" @click="emit('delete', category)">Delete</button>
             </div>
         </div>
 

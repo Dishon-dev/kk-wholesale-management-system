@@ -1,8 +1,8 @@
 import http from '@/bootstrap';
 
 export async function list() {
-    const { data } = await http.get('/roles');
-    return data;
+    const response = await http.get('/roles');
+    return response.data;
 }
 
 export async function get(id) {

@@ -81,7 +81,7 @@ async function handleDelete(category) {
                 <h1 class="text-xl font-semibold">Categories</h1>
                 <p class="text-sm text-ink-soft">Group products so they're easier to browse and report on.</p>
             </div>
-            <button v-if="can('categories.manage')" type="button" class="btn-primary" @click="openCreate">
+            <button v-if="can('categories.create')" type="button" class="btn-primary" @click="openCreate">
                 Add top-level category
             </button>
         </div>

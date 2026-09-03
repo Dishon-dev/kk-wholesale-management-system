@@ -86,6 +86,8 @@ class RolePermissionSeeder extends Seeder
 
             'dashboard.view',
             'reports.view',
+
+            'logs_view',
         ];
 
         foreach ($permissions as $permission) {

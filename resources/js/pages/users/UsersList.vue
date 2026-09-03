@@ -110,7 +110,7 @@ async function handleDelete(user) {
                         <th>Scope</th>
                         <th>Last login</th>
                         <th>Status</th>
-                        <th></th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -126,13 +126,13 @@ async function handleDelete(user) {
                                 </div>
                             </div>
                         </td>
-                        <td class="text-ink-soft">{{ user.roles?.join(', ') || '—' }}</td>
+                        <td class="text-ink-soft">{{ user.roles?.[0].name || '—' }}</td>
                         <td class="text-ink-soft">{{ user.store?.name ?? user.branch?.name ?? 'All branches' }}</td>
                         <td class="text-ink-soft">{{ user.last_login_at ? formatDateTime(user.last_login_at) : 'Never' }}</td>
                         <td>
                             <StatusTag :label="user.is_active ? 'Active' : 'Inactive'" :tone="user.is_active ? 'positive' : 'neutral'" />
                         </td>
-                        <td class="text-right">
+                        <td>
                             <button type="button" class="btn-ghost px-2 py-1 text-xs" @click="openEdit(user)">Edit</button>
                             <button type="button" class="btn-ghost px-2 py-1 text-xs" @click="handleResetPassword(user)">Reset password</button>
                             <button type="button" class="btn-ghost px-2 py-1 text-xs" @click="toggleActive(user)">
