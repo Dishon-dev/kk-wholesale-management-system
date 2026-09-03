@@ -37,11 +37,11 @@ const form = useForm(
 function resetForm(branch = null) {
     form.reset({
         name: branch?.name ?? '',
-        code: branch?.code ?? '',
+        code: branch?.branch_code ?? '',
         phone: branch?.phone ?? '',
         email: branch?.email ?? '',
         address: branch?.address ?? '',
-        status: branch?.status ?? true,
+        status: branch?.is_active ?? true,
     });
 }
 

@@ -134,10 +134,11 @@ async function handleDelete(branch) {
                     <tr>
                         <th>Name</th>
                         <th>Code</th>
-                        <th>Contact</th>
+                        <th>Email</th>
+                        <th>phone</th>
                         <th>Stores</th>
                         <th>Status</th>
-                        <th></th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
 
@@ -151,11 +152,15 @@ async function handleDelete(branch) {
                         </td>
 
                         <td class="figures text-ink-soft">
-                            {{ branch.code }}
+                            {{ branch.branch_code }}
                         </td>
 
                         <td class="text-ink-soft">
-                            {{ branch.phone || branch.email || '—' }}
+                            {{ branch.email || '—' }}
+                        </td>
+
+                        <td class="text-ink-soft">
+                            {{ branch.phone || '—' }}
                         </td>
 
                         <td class="text-ink-soft">
@@ -164,12 +169,12 @@ async function handleDelete(branch) {
 
                         <td>
                             <StatusTag
-                                :label="branch.status ? 'Active' : 'Inactive'"
-                                :tone="branch.status ? 'positive' : 'neutral'"
+                                :label="branch.is_active ? 'Active' : 'Inactive'"
+                                :tone="branch.is_active ? 'positive' : 'neutral'"
                             />
                         </td>
 
-                        <td class="text-right">
+                        <td>
                             <button
                                 v-if="can(PERMISSIONS.BRANCHES_UPDATE)"
                                 type="button"

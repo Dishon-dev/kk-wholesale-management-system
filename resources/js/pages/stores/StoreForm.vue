@@ -18,11 +18,11 @@ const form = useForm(
     {
         branch_id: props.store?.branch_id ?? '',
         name: props.store?.name ?? '',
-        code: props.store?.code ?? '',
+        code: props.store?.store_code ?? '',
         phone: props.store?.phone ?? '',
         email: props.store?.email ?? '',
         address: props.store?.address ?? '',
-        status: props.store?.status ?? true,
+        status: props.store?.is_active ?? true,
     },
     { rules: { name: [required], code: [required], branch_id: [required] } }
 );

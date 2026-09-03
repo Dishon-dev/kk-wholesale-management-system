@@ -63,11 +63,11 @@ function stockTone(stock) {
                 <div class="flex gap-6 text-right text-sm">
                     <div>
                         <p class="text-xs text-ink-faint">Cost</p>
-                        <p class="figures text-ink">{{ formatCurrency(variant.cost_price) }}</p>
+                        <p class="figures text-ink">{{ formatCurrency(variant.price) }}</p>
                     </div>
                     <div>
                         <p class="text-xs text-ink-faint">Selling price</p>
-                        <p class="figures text-ink">{{ formatCurrency(variant.selling_price) }}</p>
+                        <p class="figures text-ink">{{ formatCurrency(variant.cost) }}</p>
                     </div>
                 </div>
             </div>

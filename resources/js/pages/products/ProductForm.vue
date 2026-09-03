@@ -55,11 +55,11 @@ onMounted(async () => {
             form.reset({
                 name: product.name,
                 sku_prefix: product.sku_prefix,
-                brand: product.brand ?? '',
-                category_id: product.category_id ?? '',
+                brand: product.brand?.name ?? '',
+                category_id: product.category?.id ?? '',
                 description: product.description ?? '',
-                has_variants: product.has_variants,
-                status: product.status,
+                has_variants: product.variants?.length > 1,
+                status: product.is_active,
                 variants: product.variants?.length ? product.variants : [blankVariant()],
             });
         } finally {
@@ -78,7 +78,6 @@ function removeVariant(index) {
 
 function onHasVariantsToggle() {
     if (!form.data.has_variants) {
-        // Collapse back down to a single Default Variant row.
         form.data.variants = [form.data.variants[0] ?? blankVariant()];
         form.data.variants[0].name = 'Default Variant';
     } else if (form.data.variants.length === 1 && form.data.variants[0].name === 'Default Variant') {
@@ -87,8 +86,6 @@ function onHasVariantsToggle() {
 }
 
 async function handleSubmit() {
-    // Light client-side pass on variant rows before hitting the network —
-    // the backend re-validates all of this regardless.
     const variantErrors = form.data.variants.some(
         (variant) => required(variant.name) || required(variant.sku) || isPositiveNumber(variant.selling_price) || isNonNegativeNumber(variant.cost_price)
     );
@@ -112,7 +109,7 @@ async function handleSubmit() {
     <div class="mx-auto max-w-3xl">
         <div class="mb-5">
             <h1 class="text-xl font-semibold">{{ isEditing ? 'Edit product' : 'Add product' }}</h1>
-            <p class="text-sm text-ink-soft">Every product needs at least one variant — plain products get a single "Default Variant".</p>
+            <p class="text-sm text-ink-soft">Every product needs at least one variant - simple products get a "Default Variant".</p>
         </div>
 
         <LoadingSpinner v-if="loading" label="Loading product" />
@@ -191,11 +188,11 @@ async function handleSubmit() {
                         </div>
                         <div class="col-span-2">
                             <label class="field-label">Cost price</label>
-                            <input v-model="variant.cost_price" type="number" min="0" step="0.01" class="field-input" />
+                            <input v-model="variant.price" type="number" min="0" step="0.01" class="field-input" />
                         </div>
                         <div class="col-span-2">
                             <label class="field-label">Selling price</label>
-                            <input v-model="variant.selling_price" type="number" min="0" step="0.01" class="field-input" />
+                            <input v-model="variant.cost" type="number" min="0" step="0.01" class="field-input" />
                         </div>
                         <div class="col-span-1 flex h-full items-end justify-end pb-2">
                             <button

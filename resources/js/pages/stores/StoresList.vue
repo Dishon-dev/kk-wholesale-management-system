@@ -64,7 +64,7 @@ async function handleDelete(store) {
                 <h1 class="text-xl font-semibold">Stores</h1>
                 <p class="text-sm text-ink-soft">Each store keeps its own stock, sales and transfers.</p>
             </div>
-            <button v-if="can('stores.manage')" type="button" class="btn-primary" @click="openCreate">
+            <button v-if="can('stores.create')" type="button" class="btn-primary" @click="openCreate">
                 Add store
             </button>
         </div>
@@ -84,23 +84,23 @@ async function handleDelete(store) {
                         <th>Code</th>
                         <th>Contact</th>
                         <th>Status</th>
-                        <th></th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="store in items" :key="store.id">
                         <td class="font-medium">{{ store.name }}</td>
                         <td class="text-ink-soft">{{ store.branch?.name }}</td>
-                        <td class="figures text-ink-soft">{{ store.code }}</td>
+                        <td class="figures text-ink-soft">{{ store.store_code }}</td>
                         <td class="text-ink-soft">{{ store.phone || store.email || '—' }}</td>
                         <td>
-                            <StatusTag :label="store.status ? 'Active' : 'Inactive'" :tone="store.status ? 'positive' : 'neutral'" />
+                            <StatusTag :label="store.is_active ? 'Active' : 'Inactive'" :tone="store.status ? 'positive' : 'neutral'" />
                         </td>
-                        <td class="text-right">
-                            <button v-if="can('stores.manage')" type="button" class="btn-ghost px-2 py-1 text-xs" @click="openEdit(store)">
+                        <td>
+                            <button v-if="can('stores.update')" type="button" class="btn-ghost px-2 py-1 text-xs" @click="openEdit(store)">
                                 Edit
                             </button>
-                            <button v-if="can('stores.manage')" type="button" class="btn-ghost px-2 py-1 text-xs text-brick-500" @click="handleDelete(store)">
+                            <button v-if="can('stores.delete')" type="button" class="btn-ghost px-2 py-1 text-xs text-brick-500" @click="handleDelete(store)">
                                 Delete
                             </button>
                         </td>
