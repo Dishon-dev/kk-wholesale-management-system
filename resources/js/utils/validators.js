@@ -1,10 +1,3 @@
-/**
- * These run in the browser purely to give instant feedback before a round
- * trip. They intentionally mirror, not replace, the backend's validation —
- * every request is re-validated server side regardless of what the UI let
- * through, since client checks can always be bypassed.
- */
-
 export function required(value) {
     if (value === null || value === undefined) return 'This field is required.';
     if (typeof value === 'string' && value.trim() === '') return 'This field is required.';

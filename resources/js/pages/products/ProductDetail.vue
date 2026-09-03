@@ -46,7 +46,7 @@ function stockTone(stock) {
             </div>
             <div class="flex items-center gap-2">
                 <StatusTag :label="product.status ? 'Active' : 'Inactive'" :tone="product.status ? 'positive' : 'neutral'" />
-                <RouterLink v-if="can('products.manage')" :to="{ name: 'products.edit', params: { id: product.id } }" class="btn-secondary">
+                <RouterLink v-if="can('products.update')" :to="{ name: 'products.edit', params: { id: product.id } }" class="btn-secondary">
                     Edit product
                 </RouterLink>
             </div>

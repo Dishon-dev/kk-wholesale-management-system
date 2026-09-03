@@ -20,6 +20,7 @@ class ProductService
             ->with([
                 'category',
                 'brand',
+                'variants',
                 'defaultVariant',
             ])
             ->when(

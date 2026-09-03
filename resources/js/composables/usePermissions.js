@@ -8,6 +8,6 @@ export function usePermissions() {
         can: (permission) => auth.can(permission),
         canAny: (permissions) => auth.canAny(permissions),
         roles: computed(() => auth.roles),
-        isAdministrator: computed(() => auth.roles.includes('Administrator')),
+        isAdministrator: computed(() => auth.roles.includes('Super Admin')),
     };
 }

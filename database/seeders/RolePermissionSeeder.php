@@ -84,6 +84,7 @@ class RolePermissionSeeder extends Seeder
             'returns.create',
             'returns.cancel',
 
+            'dashboard.view',
             'reports.view',
         ];
 

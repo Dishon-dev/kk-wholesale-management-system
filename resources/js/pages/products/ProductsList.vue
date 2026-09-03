@@ -38,11 +38,20 @@ async function handleDelete(product) {
 }
 
 function priceRange(product) {
-    const prices = (product.variants ?? []).map((v) => Number(v.selling_price));
-    if (!prices.length) return '—';
+    const prices = (product.variants ?? [])
+        .map((variant) => Number(variant.price))
+        .filter(Number.isFinite);
+
+    if (!prices.length) {
+        return '—';
+    }
+
     const min = Math.min(...prices);
     const max = Math.max(...prices);
-    return min === max ? formatCurrency(min) : `${formatCurrency(min)} – ${formatCurrency(max)}`;
+
+    return min === max
+        ? formatCurrency(min)
+        : `${formatCurrency(min)} – ${formatCurrency(max)}`;
 }
 </script>
 
@@ -53,7 +62,7 @@ function priceRange(product) {
                 <h1 class="text-xl font-semibold">Products</h1>
                 <p class="text-sm text-ink-soft">Your catalog. Stock levels live on the Stock page, not here.</p>
             </div>
-            <RouterLink v-if="can('products.manage')" :to="{ name: 'products.create' }" class="btn-primary">
+            <RouterLink v-if="can('products.create')" :to="{ name: 'products.create' }" class="btn-primary">
                 Add product
             </RouterLink>
         </div>
@@ -84,17 +93,17 @@ function priceRange(product) {
                             </RouterLink>
                             <p class="text-xs text-ink-faint">{{ product.sku_prefix }}</p>
                         </td>
-                        <td class="text-ink-soft">{{ product.brand || '—' }}</td>
+                        <td class="text-ink-soft">{{ product.brand?.name || '—' }}</td>
                         <td class="text-ink-soft">{{ product.variants?.length ?? 0 }}</td>
                         <td class="figures text-ink-soft">{{ priceRange(product) }}</td>
                         <td>
-                            <StatusTag :label="product.status ? 'Active' : 'Inactive'" :tone="product.status ? 'positive' : 'neutral'" />
+                            <StatusTag :label="product.is_active ? 'Active' : 'Inactive'" :tone="product.status ? 'positive' : 'neutral'" />
                         </td>
                         <td class="text-right">
-                            <RouterLink v-if="can('products.manage')" :to="{ name: 'products.edit', params: { id: product.id } }" class="btn-ghost inline-flex px-2 py-1 text-xs">
+                            <RouterLink v-if="can('products.update')" :to="{ name: 'products.edit', params: { id: product.id } }" class="btn-ghost inline-flex px-2 py-1 text-xs">
                                 Edit
                             </RouterLink>
-                            <button v-if="can('products.manage')" type="button" class="btn-ghost px-2 py-1 text-xs text-brick-500" @click="handleDelete(product)">
+                            <button v-if="can('products.delete')" type="button" class="btn-ghost px-2 py-1 text-xs text-brick-500" @click="handleDelete(product)">
                                 Delete
                             </button>
                         </td>

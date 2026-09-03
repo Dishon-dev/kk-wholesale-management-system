@@ -59,7 +59,6 @@ export const ALERT_TYPES = {
  */
 
 export const PERMISSIONS = {
-    // Dashboard / Reports
     DASHBOARD_VIEW: 'reports.view',
     REPORTS_VIEW: 'reports.view',
 
